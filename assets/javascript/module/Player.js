@@ -96,6 +96,10 @@ define(['module/HUD'],function(HUD){
             }else if (_game.input.keyboard.isDown(Phaser.Keyboard.S)) {
                 _ship.body.velocity.y = 200;
             }
+
+            if (_game.input.keyboard.isDown(Phaser.Keyboard.L)) {
+                _fireBullet();
+            }
         },
         setBulletGroup: function(bullets){
             _bulletGroup = bullets.getBulletGroup();
@@ -107,7 +111,7 @@ define(['module/HUD'],function(HUD){
             _explosionGroup = explosions.getExplosionGroup();
         },        
         startShooting: function(){
-            _shootingEvent = _game.time.events.loop(_firingTime,_fireBullet,this);
+            //_shootingEvent = _game.time.events.loop(_firingTime,_fireBullet,this);
         },
         stopShooting: function(){
             _game.time.events.remove(_shootingEvent);
