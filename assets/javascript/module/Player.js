@@ -85,15 +85,15 @@ define(['module/HUD'],function(HUD){
         update: function(){
             _ship.body.velocity.setTo(0,0);
 
-            if(_cursors.left.isDown){
+            if (_game.input.keyboard.isDown(Phaser.Keyboard.A)) {
                 _ship.body.velocity.x = -200;
-            }else if(_cursors.right.isDown){
+            } else if (_game.input.keyboard.isDown(Phaser.Keyboard.D)) {
                 _ship.body.velocity.x = 200;
             }
 
-            if(_cursors.up.isDown){
+            if (_game.input.keyboard.isDown(Phaser.Keyboard.W)) {
                 _ship.body.velocity.y = -200;
-            }else if(_cursors.down.isDown){
+            }else if (_game.input.keyboard.isDown(Phaser.Keyboard.S)) {
                 _ship.body.velocity.y = 200;
             }
         },
