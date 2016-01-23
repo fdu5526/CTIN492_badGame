@@ -6,6 +6,7 @@ define(['module/HUD'],function(HUD){
 
     //Private Variables
     var _game = null,
+        _shootKey = null,
         _health = null,
         _lives = null,
         _score = null,
@@ -62,13 +63,13 @@ define(['module/HUD'],function(HUD){
     };
 
     return{
-        init: function(game){
+        init: function(game) {
             _game = game;            
         },
-        preload: function(){
+        preload: function() {
             _game.load.image('ship', 'assets/img/player.png');
         },
-        create: function(configuration){
+        create: function(configuration) {
             _ship = _game.add.sprite(400,500,'ship');
             _ship.anchor.setTo(0.5,0.5);
             _game.physics.enable(_ship,Phaser.Physics.ARCADE);
@@ -81,8 +82,11 @@ define(['module/HUD'],function(HUD){
             _bulletSpeed = configuration.bulletSpeed;
 
             _cursors = _game.input.keyboard.createCursorKeys();
+
+            _shootKey = _game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+            _shootKey.onDown.add(_fireBullet, this)
         },
-        update: function(){
+        update: function() {
             _ship.body.velocity.setTo(0,0);
 
             if (_game.input.keyboard.isDown(Phaser.Keyboard.A)) {
@@ -96,33 +100,29 @@ define(['module/HUD'],function(HUD){
             }else if (_game.input.keyboard.isDown(Phaser.Keyboard.S)) {
                 _ship.body.velocity.y = 200;
             }
-
-            if (_game.input.keyboard.isDown(Phaser.Keyboard.L)) {
-                _fireBullet();
-            }
         },
-        setBulletGroup: function(bullets){
+        setBulletGroup: function(bullets) {
             _bulletGroup = bullets.getBulletGroup();
         },
-        getBulletGroup: function(){
+        getBulletGroup: function() {
             return _bulletGroup;
         },
-        setExplosionGroup: function(explosions){
+        setExplosionGroup: function(explosions) {
             _explosionGroup = explosions.getExplosionGroup();
         },        
-        startShooting: function(){
+        startShooting: function() {
             //_shootingEvent = _game.time.events.loop(_firingTime,_fireBullet,this);
         },
-        stopShooting: function(){
+        stopShooting: function() {
             _game.time.events.remove(_shootingEvent);
         },
-        getPlayerShip: function(){
+        getPlayerShip: function() {
             return _ship;
         },
-        createOverLap: function(bulletGroup){
+        createOverLap: function(bulletGroup) {
             _game.physics.arcade.overlap(_ship,bulletGroup,_collisionHandler,null,this);
         },
-        setAliensAndAlienGroup: function(aliens){
+        setAliensAndAlienGroup: function(aliens) {
             _aliens = aliens;
             _alienGroup=aliens.getAlienGroup();
         }
