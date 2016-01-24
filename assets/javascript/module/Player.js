@@ -29,7 +29,17 @@ define(['module/HUD'],function(HUD){
             //_bullet.lifespan = _game.height / (_bulletSpeed/1000);
             _bullet.checkWorldBounds = true;
             _bullet.reset(_ship.x,_ship.y+8);
-            _bullet.body.velocity.y = -_bulletSpeed;
+            //_bullet.body.velocity.y = -_bulletSpeed;
+
+            x = _game.input.mousePointer.x - _ship.x;
+            y = _game.input.mousePointer.y - _ship.y;
+            m = Math.sqrt(x * x + y * y);
+
+            x = x / m * _bulletSpeed;
+            y = y / m * _bulletSpeed;
+
+            _bullet.body.velocity.x = x;
+            _bullet.body.velocity.y = y;
         }
     };
 
@@ -82,9 +92,7 @@ define(['module/HUD'],function(HUD){
             _bulletSpeed = configuration.bulletSpeed;
 
             _cursors = _game.input.keyboard.createCursorKeys();
-
-            _shootKey = _game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-            _shootKey.onDown.add(_fireBullet, this)
+            _game.input.onDown.add(_fireBullet, this);
         },
         update: function() {
             _ship.body.velocity.setTo(0,0);
