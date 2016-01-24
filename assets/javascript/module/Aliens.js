@@ -40,7 +40,7 @@ define(['module/HUD'],function(HUD){
             //making aliens
             for(var i=0;i < _cols;i++){
                 for(var j=0; j < _rows;j++){
-                    _alien = _alienGroup.create(i * 48, j * 50, 'invader');
+                    _alien = _alienGroup.create(i * 60, j * 50, 'invader');
 
                     //custome properties
                     _alien.health = _health;
@@ -75,6 +75,8 @@ define(['module/HUD'],function(HUD){
                 if(_shooter){
                     _game.physics.arcade.moveToObject(_shooter,_playerShip,_moveSpeed);
                 }
+            } else {
+                window.open('end.html', '_self');
             }
         }
 
