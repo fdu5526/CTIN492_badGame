@@ -46,8 +46,6 @@ define(['module/HUD'],function(HUD){
                     _alien.myScore = _scoreValue;
 
                     _alien.anchor.setTo(0.5, 0.5);
-                    _alien.animations.add('fly', [ 0, 1, 2, 3 ], 20, true);
-                    _alien.play('fly');
                     _alien.body.moves = false;
                 }
             }
@@ -142,7 +140,9 @@ define(['module/HUD'],function(HUD){
             _game = game;
         },
         preload: function(){
-            _game.load.spritesheet('invader', 'assets/img/invader32x32x4.png', 32, 32);
+            //_game.load.spritesheet('invader', 'assets/img/invader32x32x4.png', 32, 32);
+            _game.load.image('invader', 'assets/img/invader.png');
+
         },
         create: function(configuration){
             return( new _Aliens(configuration) );

@@ -40,6 +40,7 @@ define(['module/HUD'],function(HUD){
 
             _bullet.body.velocity.x = x;
             _bullet.body.velocity.y = y;
+            _bullet.angle = Math.atan2(y, x) * 180 / 3.14 + 90;
         }
     };
 
