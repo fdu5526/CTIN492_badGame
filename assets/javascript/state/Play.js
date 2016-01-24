@@ -30,8 +30,8 @@ define(['module/Background','module/Player','module/Aliens','module/Bullets','mo
             
             //Setting up Aliens
             var alienConfiguration = {
-                rows:3,
-                cols:4,
+                rows:2,
+                cols:5,
                 scoreValue:10,
                 firingTime:200,
                 bulletSpeed:200,

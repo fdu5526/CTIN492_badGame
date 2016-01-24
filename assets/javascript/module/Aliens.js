@@ -39,7 +39,7 @@ define(['module/HUD'],function(HUD){
             //making aliens
             for(var i=0;i < _cols;i++){
                 for(var j=0; j < _rows;j++){
-                    _alien = _alienGroup.create(i * 60, j * 50, 'invader');
+                    _alien = _alienGroup.create(i * 150, j * 50, 'invader');
 
                     //custome properties
                     _alien.health = _health;
@@ -52,10 +52,6 @@ define(['module/HUD'],function(HUD){
             //setting aliens postition
             _alienGroup.x = 100;
             _alienGroup.y = 50;
-
-            //  All this does is basically start the invaders moving.
-            //_tween = _game.add.tween(_alienGroup).to( { x: 200 }, 2000, _easing, true, 0, 1000, true);
-           
         }
 
 
@@ -79,30 +75,19 @@ define(['module/HUD'],function(HUD){
             }
         }
 
-
-
         var _fireBullet = function () {
-            _bullet = _bulletGroup.getFirstExists(false);
-            
-            _livingAlien = [];
-            
             _alienGroup.forEachAlive(function(alien){
-                _livingAlien.push(alien);
-            });
-                        
-            if(_bullet && _livingAlien.length > 0){
-
-                //_bullet.lifespan = _game.height / (_bulletSpeed/1000);
-                _bullet.lifespan = 100;
-                _bullet.checkWorldBounds = true;
-                _randomAlienIndex = _game.rnd.integerInRange(0,_livingAlien.length);
-                _shooter = _livingAlien[_randomAlienIndex];
-                
-                if(_shooter){
-                    _bullet.reset(_shooter.body.x,_shooter.body.y);
-                    _game.physics.arcade.moveToObject(_bullet,_playerShip,_bulletSpeed);
+                dx = _playerShip.body.x - alien.body.x;
+                dy = _playerShip.body.y - alien.body.y;
+                if (dx*dx + dy*dy < 10000) {
+                    _bullet = _bulletGroup.getFirstExists(false);
+                    if(_bullet) {
+                        _bullet.lifespan = 300;
+                        _bullet.reset(alien.body.x,alien.body.y);
+                        _game.physics.arcade.moveToObject(_bullet,_playerShip,_bulletSpeed);
+                    }
                 }
-            }
+            });
         };
 
         // hit by bullet
@@ -160,7 +145,6 @@ define(['module/HUD'],function(HUD){
             _game = game;
         },
         preload: function(){
-            //_game.load.spritesheet('invader', 'assets/img/invader32x32x4.png', 32, 32);
             _game.load.image('invader', 'assets/img/invader.png');
 
         },

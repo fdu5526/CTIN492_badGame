@@ -99,15 +99,15 @@ define(['module/HUD'],function(HUD){
             _ship.body.velocity.setTo(0,0);
 
             if (_game.input.keyboard.isDown(Phaser.Keyboard.A)) {
-                _ship.body.velocity.x = -200;
+                _ship.body.velocity.x = -100;
             } else if (_game.input.keyboard.isDown(Phaser.Keyboard.D)) {
-                _ship.body.velocity.x = 200;
+                _ship.body.velocity.x = 100;
             }
 
             if (_game.input.keyboard.isDown(Phaser.Keyboard.W)) {
-                _ship.body.velocity.y = -200;
+                _ship.body.velocity.y = -100;
             }else if (_game.input.keyboard.isDown(Phaser.Keyboard.S)) {
-                _ship.body.velocity.y = 200;
+                _ship.body.velocity.y = 100;
             }
         },
         setBulletGroup: function(bullets) {
