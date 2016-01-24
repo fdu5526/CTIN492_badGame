@@ -46,24 +46,21 @@ define(['module/HUD'],function(HUD){
                     _alien.myScore = _scoreValue;
 
                     _alien.anchor.setTo(0.5, 0.5);
-                    _alien.body.moves = false;
                 }
             }
-                       
 
             //setting aliens postition
             _alienGroup.x = 100;
             _alienGroup.y = 50;
 
             //  All this does is basically start the invaders moving.
-            _tween = _game.add.tween(_alienGroup).to( { x: 200 }, 2000, _easing, true, 0, 1000, true);
+            //_tween = _game.add.tween(_alienGroup).to( { x: 200 }, 2000, _easing, true, 0, 1000, true);
            
         }
 
 
 
         var _fireBullet = function(){
-            _bullet = _bulletGroup.getFirstExists(false);
             
             _livingAlien = [];
             
@@ -71,19 +68,15 @@ define(['module/HUD'],function(HUD){
                 _livingAlien.push(alien);
             });
                         
-            if(_bullet && _livingAlien.length > 0){
-
-                //_bullet.lifespan = _game.height / (_bulletSpeed/1000);
-                _bullet.checkWorldBounds = true;
+            if(_livingAlien.length > 0){
                 
                 _randomAlienIndex = _game.rnd.integerInRange(0,_livingAlien.length);
 
                 _shooter = _livingAlien[_randomAlienIndex];
                 
                 if(_shooter){
-                    _bullet.reset(_shooter.body.x,_shooter.body.y);
 
-                    _game.physics.arcade.moveToObject(_bullet,_playerShip,_bulletSpeed);
+                    _game.physics.arcade.moveToObject(_shooter,_playerShip,_bulletSpeed);
                 }
             //all alien died
             }else if(_livingAlien.length == 0){
@@ -92,6 +85,7 @@ define(['module/HUD'],function(HUD){
 
         };
 
+        // hit by bullet
         var _collisionHandler = function(bullet, alien){
 
             alien.damage(bullet.bulletDamage);

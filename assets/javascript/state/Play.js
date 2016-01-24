@@ -34,7 +34,7 @@ define(['module/Background','module/Player','module/Aliens','module/Bullets','mo
                 cols:10,
                 scoreValue:10,
                 firingTime:200,
-                bulletSpeed:200,
+                bulletSpeed:50,
                 health: 100,
                 easing: Phaser.Easing.Linear.None
             };
