@@ -57,7 +57,7 @@ define(['module/Background','module/Player','module/Aliens','module/Bullets','mo
             //Setting up the collision handling
             aliens.createOverLap(Player.getBulletGroup());
             Player.createOverLap(aliens.getBulletGroup());
-        }        
+        }
     }
     
     return{

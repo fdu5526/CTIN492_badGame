@@ -95,14 +95,19 @@ define(['module/HUD'],function(HUD){
         var _collisionHandler = function(bullet, alien){
 
             alien.damage(bullet.bulletDamage);
-            bullet.kill();
+            _explosion = _explosionGroup.getFirstExists(false);
             
             if(alien.health <= 0){
-                _explosion = _explosionGroup.getFirstExists(false);
                 _explosion.reset(alien.body.x,alien.body.y);
+                _explosion.scale.setTo(1, 1);
+                _explosion.play('kaboom',30,false,true);
+            } else {
+                _explosion.reset(bullet.body.x,bullet.body.y);
+                _explosion.scale.setTo(0.25, 0.25);
                 _explosion.play('kaboom',30,false,true);
             }
 
+            bullet.kill();
             HUD.updateScoreText(alien.myScore);
         };
 
