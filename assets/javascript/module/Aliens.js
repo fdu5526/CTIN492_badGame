@@ -71,7 +71,7 @@ define(['module/HUD'],function(HUD){
                     _game.physics.arcade.moveToObject(_shooter,_playerShip,_moveSpeed);
                 }
             } else {
-                window.open('end.html', '_self');
+                window.open('cutscene.html', '_self');
             }
         }
 
