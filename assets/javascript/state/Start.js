@@ -10,15 +10,15 @@ define(['module/HUD'],function(HUD){
     var _Start = {                    
         create: function(){
             //creating the titel screen
-            HUD.createTitle(' Last of Us \n Press Spacebar');
+            HUD.createTitle(' Last of Us \n WASD & Left Mouse');
             
             //Seeting up the Physics for the game
             _game.physics.startSystem(Phaser.Physics.ARCADE); 
             
             //Starting the next state(Play) after the spacebar is down
-            _game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).onDown.addOnce(function(){
+            _game.input.onDown.addOnce(function(){
                 _game.state.start(_nextState);
-            });                        
+            });
         }            
     }
 
