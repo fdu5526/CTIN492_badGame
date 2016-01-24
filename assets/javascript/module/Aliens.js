@@ -5,7 +5,6 @@ define(['module/HUD'],function(HUD){
 
     //Private variables
     var _game = null;
-    //var _alienGroups = [];
     var _playerShip = null;
 
     //Private class

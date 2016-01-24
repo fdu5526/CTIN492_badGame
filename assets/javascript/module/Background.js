@@ -18,8 +18,7 @@ define(function(){
             _starfield = _game.add.tileSprite(0, 0,800,600, 'starfield');
         },
         update: function(){
-            _starfield.tilePosition.y +=2;
+            //_starfield.tilePosition.y +=2;
         }
-
     }
 });
