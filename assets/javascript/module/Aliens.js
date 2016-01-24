@@ -97,7 +97,7 @@ define(['module/HUD'],function(HUD){
             alien.damage(bullet.bulletDamage);
             bullet.kill();
             
-            if(alien.health == 0){
+            if(alien.health <= 0){
                 _explosion = _explosionGroup.getFirstExists(false);
                 _explosion.reset(alien.body.x,alien.body.y);
                 _explosion.play('kaboom',30,false,true);

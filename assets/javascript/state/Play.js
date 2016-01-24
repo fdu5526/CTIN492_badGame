@@ -25,7 +25,7 @@ define(['module/Background','module/Player','module/Aliens','module/Bullets','mo
             };
             
             Player.create(playerConfiguration);
-            Player.setBulletGroup(Bullets.create(10,'bullet',100));
+            Player.setBulletGroup(Bullets.create(10,'bullet',35));
             Player.setExplosionGroup(Explosions.create(1,'kaboom'));
             
             //Setting up Aliens
