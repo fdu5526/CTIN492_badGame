@@ -18,6 +18,7 @@ define(['module/HUD'],function(HUD){
             _scoreValue = configuration.scoreValue,
             _firingTime = configuration.firingTime,
             _bulletSpeed = configuration.bulletSpeed,
+            _moveSpeed = configuration.moveSpeed
             _health = configuration.health,
             _easing = configuration.easing,
             _alien = null,
@@ -59,9 +60,7 @@ define(['module/HUD'],function(HUD){
         }
 
 
-
-        var _fireBullet = function(){
-            
+        var _moveTowardPlayer = function () {
             _livingAlien = [];
             
             _alienGroup.forEachAlive(function(alien){
@@ -69,20 +68,40 @@ define(['module/HUD'],function(HUD){
             });
                         
             if(_livingAlien.length > 0){
-                
                 _randomAlienIndex = _game.rnd.integerInRange(0,_livingAlien.length);
 
                 _shooter = _livingAlien[_randomAlienIndex];
                 
                 if(_shooter){
-
-                    _game.physics.arcade.moveToObject(_shooter,_playerShip,_bulletSpeed);
+                    _game.physics.arcade.moveToObject(_shooter,_playerShip,_moveSpeed);
                 }
-            //all alien died
-            }else if(_livingAlien.length == 0){
-                _game.state.start('End');
             }
+        }
 
+
+
+        var _fireBullet = function () {
+            _bullet = _bulletGroup.getFirstExists(false);
+            
+            _livingAlien = [];
+            
+            _alienGroup.forEachAlive(function(alien){
+                _livingAlien.push(alien);
+            });
+                        
+            if(_bullet && _livingAlien.length > 0){
+
+                //_bullet.lifespan = _game.height / (_bulletSpeed/1000);
+                _bullet.lifespan = 100;
+                _bullet.checkWorldBounds = true;
+                _randomAlienIndex = _game.rnd.integerInRange(0,_livingAlien.length);
+                _shooter = _livingAlien[_randomAlienIndex];
+                
+                if(_shooter){
+                    _bullet.reset(_shooter.body.x,_shooter.body.y);
+                    _game.physics.arcade.moveToObject(_bullet,_playerShip,_bulletSpeed);
+                }
+            }
         };
 
         // hit by bullet
@@ -118,6 +137,7 @@ define(['module/HUD'],function(HUD){
             },
             startShooting: function(){
                 _shootingEvent = _game.time.events.loop(_firingTime,_fireBullet,this);
+                _shootingEvent = _game.time.events.loop(_firingTime,_moveTowardPlayer,this);
             },
             stopShooting: function(){
                 _game.time.events.remove(_shootingEvent);
