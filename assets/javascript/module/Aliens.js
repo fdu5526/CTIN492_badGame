@@ -29,6 +29,7 @@ define(['module/HUD', 'module/Player'],function(HUD, Player){
             _livingAlien = [],
             _randomAlienIndex = null,
             _shooter = null,
+            _soundHit = null,
             _shootingEvent = null;            
 
         _alienGroup.enableBody = true;
@@ -48,6 +49,8 @@ define(['module/HUD', 'module/Player'],function(HUD, Player){
                     _alien.anchor.setTo(0.5, 0.5);
                 }
             }
+
+            _soundHit = _game.add.audio('hitClicker');
 
             //setting aliens postition
             _alienGroup.x = 100;
@@ -93,6 +96,7 @@ define(['module/HUD', 'module/Player'],function(HUD, Player){
         // hit by bullet
         var _collisionHandler = function(bullet, alien){
 
+            _soundHit.play();
             alien.damage(bullet.bulletDamage);
             _explosion = _explosionGroup.getFirstExists(false);
             
@@ -123,7 +127,7 @@ define(['module/HUD', 'module/Player'],function(HUD, Player){
             },
             startShooting: function(){
                 _shootingEvent = _game.time.events.loop(_firingTime,_fireBullet,this);
-                _shootingEvent = _game.time.events.loop(_firingTime,_moveTowardPlayer,this);
+                _shootingEvent = _game.time.events.loop(100,_moveTowardPlayer,this);
             },
             stopShooting: function(){
                 _game.time.events.remove(_shootingEvent);
@@ -146,6 +150,7 @@ define(['module/HUD', 'module/Player'],function(HUD, Player){
         },
         preload: function(){
             _game.load.image('invader', 'assets/img/invader.png');
+            _game.load.audio('hitClicker', 'assets/sounds/hitClicker.ogg');
 
         },
         create: function(configuration){

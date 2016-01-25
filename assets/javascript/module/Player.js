@@ -22,19 +22,23 @@ define(['module/HUD'],function(HUD){
         _aliens = null,
         _shootingEvent = null,
         _canEscape = false,
+        _soundGun = null,
+        _soundHit = null,
         _bulletSpeed = null;
 
     var _fireBullet = function(){
         _bullet = _bulletGroup.getFirstExists(false);
 
         if(_bullet){
+            _soundGun.play();
+
             //_bullet.lifespan = _game.height / (_bulletSpeed/1000);
             _bullet.checkWorldBounds = true;
             _bullet.reset(_ship.x,_ship.y+8);
             //_bullet.body.velocity.y = -_bulletSpeed;
 
-            x = _game.input.mousePointer.x - _ship.x;
-            y = _game.input.mousePointer.y - _ship.y;
+            x = _game.input.mousePointer.x - _ship.x + _game.rnd.integerInRange(-30,30);
+            y = _game.input.mousePointer.y - _ship.y + _game.rnd.integerInRange(-30,30);
             m = Math.sqrt(x * x + y * y);
 
             x = x / m * _bulletSpeed;
@@ -49,7 +53,7 @@ define(['module/HUD'],function(HUD){
     var _collisionHandler = function(ship,bullet){
 
         ship.damage(bullet.bulletDamage);
-
+        _soundHit.play();
         bullet.kill();
         HUD.updateHealthText(ship.health);
         
@@ -76,7 +80,10 @@ define(['module/HUD'],function(HUD){
             _game = game;            
         },
         preload: function() {
+            _game.load.audio('music', 'assets/sounds/music.ogg');
             _game.load.image('ship', 'assets/img/player.png');
+            _game.load.audio('gun', 'assets/sounds/gun.ogg');
+            _game.load.audio('hitPlayer', 'assets/sounds/hitPlayer.ogg');
         },
         create: function(configuration) {
             _ship = _game.add.sprite(400,500,'ship');
@@ -89,6 +96,11 @@ define(['module/HUD'],function(HUD){
             _score = configuration.score;
             _firingTime = configuration.firingTime;
             _bulletSpeed = configuration.bulletSpeed;
+
+            _soundGun = _game.add.audio('gun');
+            _soundHit = _game.add.audio('hitPlayer');
+            _music = _game.add.audio('music');
+            _music.play();
 
             _cursors = _game.input.keyboard.createCursorKeys();
             _game.input.onDown.add(_fireBullet, this);
