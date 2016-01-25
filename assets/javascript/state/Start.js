@@ -10,7 +10,7 @@ define(['module/HUD'],function(HUD){
     var _Start = {                    
         create: function(){
             //creating the titel screen
-            HUD.createTitle(' Last of Us \n WASD & Left Mouse');
+            HUD.createTitle('Last of Us \nWASD & Left Mouse\nClick to Start');
             
             //Seeting up the Physics for the game
             _game.physics.startSystem(Phaser.Physics.ARCADE); 

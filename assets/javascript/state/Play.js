@@ -10,7 +10,7 @@ define(['module/Background','module/Player','module/Aliens','module/Bullets','mo
     //Playing State
     var _Play = {        
         create: function(){
-                                   
+            
             Background.create();
             
             HUD.createStat(0,100,3);
@@ -18,9 +18,9 @@ define(['module/Background','module/Player','module/Aliens','module/Bullets','mo
             //Setting up Player
             var playerConfiguration = {
                 health: 100,
-                lives: 3,
+                lives: 1,
                 score: 0,
-                firingTime: 300,
+                firingTime: 100,
                 bulletSpeed: 500
             };
             

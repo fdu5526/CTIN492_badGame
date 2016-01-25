@@ -11,6 +11,7 @@ define(['module/HUD'],function(HUD){
         _lives = null,
         _score = null,
         _firingTime = null,
+        _lastFireTime = null,
         _ship = null,
         _cursors = null,
         _bulletGroup = null,
