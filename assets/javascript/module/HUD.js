@@ -31,10 +31,8 @@ define(function(){
             _healthText.text = "Health: "+health;
         },
         updateLivesText: function(lives){
-            _livesText.text = "Lives: "+lives;
         },
         updateScoreText: function(score){
-            _scoreText.text = "Score: "+(_score+=score);
         },
         createTitle: function(title){
             _stateText = _game.add.text(_game.world.centerX,_game.world.centerY,

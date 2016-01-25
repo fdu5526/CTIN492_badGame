@@ -21,6 +21,7 @@ define(['module/HUD'],function(HUD){
         _alienGroup = null,
         _aliens = null,
         _shootingEvent = null,
+        _canEscape = false,
         _bulletSpeed = null;
 
     var _fireBullet = function(){
@@ -54,11 +55,7 @@ define(['module/HUD'],function(HUD){
         
         //ship lose a life
         if(ship.health <= 0){            
-            this.stopShooting();
-            _explosion = _explosionGroup.getFirstExists(false);
-            _explosion.reset(_ship.body.x,_ship.body.y);
-            _explosion.play('kaboom',30,false,true);
-            
+            this.stopShooting();            
             _lives--;
             HUD.updateLivesText(_lives);
             
@@ -109,6 +106,15 @@ define(['module/HUD'],function(HUD){
                 _ship.body.velocity.y = -100;
             }else if (_game.input.keyboard.isDown(Phaser.Keyboard.S)) {
                 _ship.body.velocity.y = 100;
+            }   
+
+            x = _ship.body.x;
+            y = _ship.body.y;
+
+            if (_canEscape && 
+                290 < x && x < 500 &&
+                0 < y && y < 150) {
+                window.open('cutscene.html', '_self');
             }
         },
         setBulletGroup: function(bullets) {
@@ -128,6 +134,11 @@ define(['module/HUD'],function(HUD){
         },
         getPlayerShip: function() {
             return _ship;
+        },
+        canEscape: function () {
+            if (!_canEscape) {
+                _canEscape = true;
+            }
         },
         createOverLap: function(bulletGroup) {
             _game.physics.arcade.overlap(_ship,bulletGroup,_collisionHandler,null,this);

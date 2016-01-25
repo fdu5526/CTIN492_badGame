@@ -1,7 +1,7 @@
 /**
  * Created by stryker on 2014.03.05..
  */
-define(['module/HUD'],function(HUD){
+define(['module/HUD', 'module/Player'],function(HUD, Player){
 
     //Private variables
     var _game = null;
@@ -71,7 +71,7 @@ define(['module/HUD'],function(HUD){
                     _game.physics.arcade.moveToObject(_shooter,_playerShip,_moveSpeed);
                 }
             } else {
-                window.open('cutscene.html', '_self');
+                Player.canEscape();
             }
         }
 
