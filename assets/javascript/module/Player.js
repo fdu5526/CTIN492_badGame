@@ -53,7 +53,7 @@ define(['module/HUD'],function(HUD){
         HUD.updateHealthText(ship.health);
         
         //ship lose a life
-        if(ship.health == 0){            
+        if(ship.health <= 0){            
             this.stopShooting();
             _explosion = _explosionGroup.getFirstExists(false);
             _explosion.reset(_ship.body.x,_ship.body.y);

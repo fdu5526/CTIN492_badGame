@@ -35,13 +35,13 @@ define(['module/Background','module/Player','module/Aliens','module/Bullets','mo
                 scoreValue:10,
                 firingTime:200,
                 bulletSpeed:200,
-                moveSpeed:50,
+                moveSpeed:90,
                 health: 100,
                 easing: Phaser.Easing.Linear.None
             };
 
             aliens = Aliens.create(alienConfiguration);
-            aliens.setBulletGroup(Bullets.create(30,'enemyBullet',10));
+            aliens.setBulletGroup(Bullets.create(30,'enemyBullet',3));
             aliens.setExplosionGroup(Explosions.create(30,'kaboom'));
             Aliens.setPlayerShip(Player.getPlayerShip());
 
